@@ -1,1 +1,88 @@
 
+package repository;
+
+import model.Scooter;
+import utils.DatabaseConnection;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ScooterRepository {
+
+    public void create(Scooter scooter) {
+        String sql = "INSERT INTO scooters (id, name) VALUES (?, ?)";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, scooter.getId());
+            ps.setString(2, scooter.getName());
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create scooter", e);
+        }
+    }
+
+    public Scooter getById(int id) {
+        String sql = "SELECT * FROM scooters WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return new Scooter(
+                        rs.getInt("id"),
+                        rs.getString("name")
+                );
+            }
+
+            return null;
+
+        } catch (Exception e) {
+            throw new RuntimeException("Scooter not found", e);
+        }
+    }
+
+    public List<Scooter> getAll() {
+        List<Scooter> scooters = new ArrayList<>();
+        String sql = "SELECT * FROM scooters";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                scooters.add(new Scooter(
+                        rs.getInt("id"),
+                        rs.getString("name")
+                ));
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to get scooters", e);
+        }
+
+        return scooters;
+    }
+
+    public void delete(int id) {
+        String sql = "DELETE FROM scooters WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to delete scooter", e);
+        }
+    }
+}
