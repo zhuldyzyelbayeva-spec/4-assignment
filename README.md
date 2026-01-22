@@ -18,4 +18,14 @@ The database schema is located in `resources/schema.sql`.
 ## Screenshots
 
 ### Project structure
+![Project structure](docs/screenshots/structure.png)
+
+### UML diagram
+![UML diagram](docs/screenshots/uml.png)
+
+### Database diagram
+![UML diagram](docs/screenshots/database.png)
+
+
+### Project structure
 ![Project structure](docs/screenshots/Снимок экрана 2026-01-22 010847.png)
