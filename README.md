@@ -1,7 +1,5 @@
 # 3-assignment
 
-This project is a simple Java library API created as part of Assignment 3.
-
 ## Project Structure
 
 The project follows a layered architecture:
