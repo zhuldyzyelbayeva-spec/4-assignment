@@ -1,1 +1,30 @@
 
+package model;
+
+public class Scooter extends BaseEntity {
+
+    private boolean available;
+
+    public Scooter(int id, String name) {
+        super(id, name);
+        this.available = true;
+    }
+
+    @Override
+    public String getEntityType() {
+        return "SCOOTER";
+    }
+
+    @Override
+    public boolean isActive() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+}
