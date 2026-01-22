@@ -1,1 +1,36 @@
 
+package repository;
+
+import model.ParkingEvent;
+import utils.DatabaseConnection;
+import exception.DatabaseOperationException;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+public class ParkingEventRepository {
+
+    public void create(ParkingEvent event) {
+        String sql = """
+            INSERT INTO parking_events (user_id, scooter_id, correct_parking)
+            VALUES (?, ?, ?)
+        """;
+
+        try (
+                Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)
+        ) {
+            ps.setInt(1, event.getUser().getId());
+            ps.setInt(2, event.getScooter().getId());
+            ps.setBoolean(3, event.isCorrectParking());
+
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            throw new DatabaseOperationException(
+                    "Failed to save parking event",
+                    e
+            );
+        }
+    }
+}
