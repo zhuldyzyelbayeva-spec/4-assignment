@@ -1,28 +1,25 @@
-
 package model;
 
 import exception.InvalidInputException;
 
-public class ParkingEvent implements Validatable, Rewardable {
+public class ParkingEvent {
 
     private User user;
     private Scooter scooter;
     private boolean correctParking;
 
-    public ParkingEvent(User user, boolean correctParking) {
+    public ParkingEvent(User user, Scooter scooter, boolean correctParking) {
         this.user = user;
         this.scooter = scooter;
         this.correctParking = correctParking;
     }
 
-    @Override
     public void validate() {
         if (user == null || scooter == null) {
             throw new InvalidInputException("User or Scooter is missing");
         }
     }
 
-    @Override
     public void applyReward() {
         if (correctParking) {
             user.addBonusMinutes(5);
@@ -31,15 +28,15 @@ public class ParkingEvent implements Validatable, Rewardable {
         }
     }
 
-    public boolean isCorrectParking() {
-        return correctParking;
-    }
-
     public User getUser() {
         return user;
     }
 
     public Scooter getScooter() {
         return scooter;
+    }
+
+    public boolean isCorrectParking() {
+        return correctParking;
     }
 }
