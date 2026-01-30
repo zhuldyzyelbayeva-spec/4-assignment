@@ -1,6 +1,14 @@
-
 package model;
 
 public interface Rewardable {
+
     void applyReward();
+
+    default boolean hasReward() {
+        return true;
+    }
+
+    static void printInfo() {
+        System.out.println("Rewardable interface in use");
+    }
 }
