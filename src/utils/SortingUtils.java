@@ -7,7 +7,7 @@ public class SortingUtils {
 
     public static void sortUsersByRating(List<User> users) {
         users.sort((u1, u2) ->
-                Double.compare(u2.getRating(), u1.getRating()));
+                Double.compare(u2.getRating(), u1.getRating())
+        );
     }
 }
-
