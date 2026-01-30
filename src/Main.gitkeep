@@ -1,24 +1,25 @@
 import utils.ReflectionUtils;
 import model.Rewardable;
 import model.User;
-
-ReflectionUtils.printClassInfo(User.class);
-Rewardable.printInfo();
-
 import model.ParkingEvent;
-import model.User;
 import service.ParkingService;
 import repository.UserRepository;
 
 public class Main {
+
     public static void main(String[] args) {
+
+        
+        ReflectionUtils.printClassInfo(User.class);
+
+        Rewardable.printInfo();
 
         UserRepository userDao = new UserRepository();
         ParkingService service = new ParkingService();
 
         User user = userDao.findById(1);
 
-        ParkingEvent event = new ParkingEvent(user, false); // true / false
+        ParkingEvent event = new ParkingEvent(user, false);
         service.processParking(event);
 
         System.out.println("FINAL STATE:");
